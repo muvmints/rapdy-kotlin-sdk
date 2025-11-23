@@ -45,8 +45,8 @@ repositories {
 
 dependencies {
     ksp("io.micronaut:micronaut-http-validation")
+    implementation(platform("com.ideazlab.jeie.muvmints:muvmints-bom:0.1-SNAPSHOT"))
 
-    compileOnly("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micrometer:context-propagation")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
@@ -57,23 +57,32 @@ dependencies {
     implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("io.micronaut.reactor:micronaut-reactor-http-client")
     implementation("jakarta.annotation:jakarta.annotation-api")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compileOnly("io.micronaut.serde:micronaut-serde-jackson")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.yaml:snakeyaml")
+    testImplementation("io.micronaut.test:micronaut-test-junit5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.mockito.kotlin:mockito-kotlin")
+    testImplementation("org.mockito:mockito-inline")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("21")
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
 }
-
 
 graalvmNative.toolchainDetection = false
 
 micronaut {
-    testRuntime("kotest5")
+    testRuntime("junit5")
     processing {
         incremental(true)
         annotations("com.ideazlab.jeie.muvmints.rapyd.*")
@@ -140,3 +149,6 @@ publishing {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
