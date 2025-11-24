@@ -24,7 +24,7 @@ pipeline {
     stage('Checkout') {
     	agent {
 			node {
-				label 'localJenkins'
+				label 'muvmints'
 			}
 		}
 		steps {
@@ -36,7 +36,7 @@ pipeline {
     stage('Prepare') {
 		agent {
 			node {
-				label 'localJenkins'
+				label 'muvmints'
 			}
 		}
 		steps {
@@ -47,7 +47,7 @@ pipeline {
     stage('Build') {
 		agent {
 			node {
-				label 'localJenkins'
+				label 'muvmints'
 			}
 		}
       steps {
@@ -73,7 +73,7 @@ pipeline {
     stage('Archive Artifacts') {
 		agent {
 			node {
-				label 'localJenkins'
+				label 'muvmints'
 			}
 		}
       when {
@@ -85,6 +85,19 @@ pipeline {
 
       }
     }
+	  stage('Publish Artifacts') {
+		  agent {
+			  node {
+				  label 'muvmints'
+			  }
+		  }
+		  when {
+			  anyOf { branch 'main'; branch 'master' }
+		  }
+		  steps {
+			  sh './gradlew --no-daemon publish'
+		  }
+	  }
   }
 
   post {
