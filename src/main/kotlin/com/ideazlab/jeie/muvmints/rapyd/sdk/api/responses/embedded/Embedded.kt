@@ -109,6 +109,27 @@ data class RapydWalletAccount(
 
 // ---- Payment Required Fields (from sample/payment_required_fields.json) ----
 
+// ---- Group Payments ----
+
+@Serdeable
+data class RapydGroupPayment(
+    val id: String?,
+    val amount: Double?,
+    @param:JsonProperty(value = "amount_to_replace")
+    val amountToReplace: Double?,
+    @param:JsonProperty(value = "cancel_reason")
+    val cancelReason: String?,
+    val country: String?,
+    val currency: String?,
+    val description: String?,
+    val expiration: Long?,
+    @param:JsonProperty(value = "merchant_reference_id")
+    val merchantReferenceId: String?,
+    val metadata: Map<String, Any?>?,
+    val payments: List<RapydPayment>?,
+    val status: String?
+)
+
 
 
 @Serdeable
