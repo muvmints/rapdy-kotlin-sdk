@@ -7,8 +7,10 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionByHos
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionItemUsageRecordRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionRequest
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateInvoiceItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.UpdateSubscriptionItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.UpdateSubscriptionRequest
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.UpdateInvoiceItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.DiscountResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.SubscriptionHostedPageResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.SubscriptionItemDeleteResponse
@@ -18,6 +20,8 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.SubscriptionListRespon
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.SubscriptionResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.UsageRecordResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.UsageRecordSummariesResponse
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.InvoiceItemDeleteResponse
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.InvoiceItemListResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.clients.SubscriptionClient
 import io.micronaut.context.annotation.Requires
 import jakarta.inject.Singleton
@@ -237,6 +241,83 @@ class SubscriptionService(
         return client.createSubscriptionItemUsageRecord(
             subscriptionItemId = subscriptionItemId,
             body = body,
+            accessKey = config.accessKey,
+            salt = signed.salt,
+            timestamp = signed.timestamp.toString(),
+            signature = signed.signature,
+            idempotency = signed.idempotency
+        )
+    }
+
+    // ---- Subscription.Invoice Item (Invoice Items) ----
+
+    fun listInvoiceItems(params: Map<String, String?> = emptyMap()): InvoiceItemListResponse {
+        val filtered = params.filterValues { !it.isNullOrBlank() }
+        val ordered = linkedMapOf<String, String>()
+        filtered.keys.sorted().forEach { k -> ordered[k] = filtered[k]!! }
+        val query = if (ordered.isNotEmpty()) ordered.entries.joinToString("&") { (k, v) -> "$k=$v" } else null
+        val pathWithQuery = buildString {
+            append("/v1/invoice_items")
+            if (!query.isNullOrBlank()) append("?").append(query)
+        }
+        val signed = sign("get", pathWithQuery, null, config)
+        return client.listInvoiceItems(
+            params = if (ordered.isEmpty()) null else ordered,
+            accessKey = config.accessKey,
+            salt = signed.salt,
+            timestamp = signed.timestamp.toString(),
+            signature = signed.signature,
+            idempotency = signed.idempotency
+        )
+    }
+
+    fun createInvoiceItem(body: CreateInvoiceItemRequest): InvoiceItemListResponse {
+        val path = "/v1/invoice_items"
+        val jsonBody = objectMapper.writeValueAsString(body).replace("\\/", "/")
+        val signed = sign("post", path, jsonBody, config)
+        return client.createInvoiceItem(
+            body = body,
+            accessKey = config.accessKey,
+            salt = signed.salt,
+            timestamp = signed.timestamp.toString(),
+            signature = signed.signature,
+            idempotency = signed.idempotency
+        )
+    }
+
+    fun retrieveInvoiceItem(invoiceItemId: String): InvoiceItemListResponse {
+        val path = "/v1/invoice_items/$invoiceItemId"
+        val signed = sign("get", path, null, config)
+        return client.retrieveInvoiceItem(
+            invoiceItem = invoiceItemId,
+            accessKey = config.accessKey,
+            salt = signed.salt,
+            timestamp = signed.timestamp.toString(),
+            signature = signed.signature,
+            idempotency = signed.idempotency
+        )
+    }
+
+    fun updateInvoiceItem(invoiceItemId: String, body: UpdateInvoiceItemRequest): InvoiceItemListResponse {
+        val path = "/v1/invoice_items/$invoiceItemId"
+        val jsonBody = objectMapper.writeValueAsString(body).replace("\\/", "/")
+        val signed = sign("post", path, jsonBody, config)
+        return client.updateInvoiceItem(
+            invoiceItem = invoiceItemId,
+            body = body,
+            accessKey = config.accessKey,
+            salt = signed.salt,
+            timestamp = signed.timestamp.toString(),
+            signature = signed.signature,
+            idempotency = signed.idempotency
+        )
+    }
+
+    fun deleteInvoiceItem(invoiceItemId: String): InvoiceItemDeleteResponse {
+        val path = "/v1/invoice_items/$invoiceItemId"
+        val signed = sign("delete", path, null, config)
+        return client.deleteInvoiceItem(
+            invoiceItem = invoiceItemId,
             accessKey = config.accessKey,
             salt = signed.salt,
             timestamp = signed.timestamp.toString(),

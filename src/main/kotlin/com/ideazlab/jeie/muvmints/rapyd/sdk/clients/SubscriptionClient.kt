@@ -4,6 +4,8 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionByHos
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionItemUsageRecordRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateSubscriptionRequest
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.CreateInvoiceItemRequest
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.UpdateInvoiceItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.UpdateSubscriptionItemRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.UpdateSubscriptionRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.SubscriptionHostedPageResponse
@@ -16,6 +18,8 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.UsageRecordResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.UsageRecordSummariesResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.DiscountResponse
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.InvoiceItemDeleteResponse
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.InvoiceItemListResponse
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 
@@ -167,4 +171,57 @@ interface SubscriptionClient {
         @Header("signature") signature: String,
         @Header("idempotency") idempotency: String
     ): UsageRecordResponse
+
+    // ---- Subscription.Invoice Item (Invoice Items) ----
+
+    @Get("/v1/invoice_items")
+    fun listInvoiceItems(
+        @QueryValue params: Map<String, String?>?,
+        @Header("access_key") accessKey: String,
+        @Header("salt") salt: String,
+        @Header("timestamp") timestamp: String,
+        @Header("signature") signature: String,
+        @Header("idempotency") idempotency: String
+    ): InvoiceItemListResponse
+
+    @Post("/v1/invoice_items")
+    fun createInvoiceItem(
+        @Body body: CreateInvoiceItemRequest,
+        @Header("access_key") accessKey: String,
+        @Header("salt") salt: String,
+        @Header("timestamp") timestamp: String,
+        @Header("signature") signature: String,
+        @Header("idempotency") idempotency: String
+    ): InvoiceItemListResponse
+
+    @Get("/v1/invoice_items/{invoiceItem}")
+    fun retrieveInvoiceItem(
+        @PathVariable invoiceItem: String,
+        @Header("access_key") accessKey: String,
+        @Header("salt") salt: String,
+        @Header("timestamp") timestamp: String,
+        @Header("signature") signature: String,
+        @Header("idempotency") idempotency: String
+    ): InvoiceItemListResponse
+
+    @Post("/v1/invoice_items/{invoiceItem}")
+    fun updateInvoiceItem(
+        @PathVariable invoiceItem: String,
+        @Body body: UpdateInvoiceItemRequest,
+        @Header("access_key") accessKey: String,
+        @Header("salt") salt: String,
+        @Header("timestamp") timestamp: String,
+        @Header("signature") signature: String,
+        @Header("idempotency") idempotency: String
+    ): InvoiceItemListResponse
+
+    @Delete("/v1/invoice_items/{invoiceItem}")
+    fun deleteInvoiceItem(
+        @PathVariable invoiceItem: String,
+        @Header("access_key") accessKey: String,
+        @Header("salt") salt: String,
+        @Header("timestamp") timestamp: String,
+        @Header("signature") signature: String,
+        @Header("idempotency") idempotency: String
+    ): InvoiceItemDeleteResponse
 }
