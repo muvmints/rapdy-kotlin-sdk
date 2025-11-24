@@ -4,6 +4,7 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.RapydCustomerRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerListResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.DiscountResponse
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerDiscountDeleteResponse
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 
@@ -73,4 +74,14 @@ interface CustomerClient {
         @Header("signature") signature: String,
         @Header("idempotency") idempotency: String
     ): DiscountResponse
+
+    @Delete("/v1/customers/{customerId}/discount")
+    fun deleteCustomerDiscount(
+        @PathVariable customerId: String,
+        @Header("access_key") accessKey: String,
+        @Header("salt") salt: String,
+        @Header("timestamp") timestamp: String,
+        @Header("signature") signature: String,
+        @Header("idempotency") idempotency: String
+    ): CustomerDiscountDeleteResponse
 }

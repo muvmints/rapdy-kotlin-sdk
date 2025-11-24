@@ -7,6 +7,7 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.api.requests.RapydCustomerRequest
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerListResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.DiscountResponse
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.CustomerDiscountDeleteResponse
 import com.ideazlab.jeie.muvmints.rapyd.sdk.clients.CustomerClient
 import io.micronaut.context.annotation.Requires
 import jakarta.inject.Singleton
@@ -101,6 +102,19 @@ class CustomerService(
         val signed = sign("get", path, null, config)
         return client.retrieveDiscount(
             discountId = discountId,
+            accessKey = config.accessKey,
+            salt = signed.salt,
+            timestamp = signed.timestamp.toString(),
+            signature = signed.signature,
+            idempotency = signed.idempotency
+        )
+    }
+
+    fun deleteCustomerDiscount(customerId: String): CustomerDiscountDeleteResponse {
+        val path = "/v1/customers/$customerId/discount"
+        val signed = sign("delete", path, null, config)
+        return client.deleteCustomerDiscount(
+            customerId = customerId,
             accessKey = config.accessKey,
             salt = signed.salt,
             timestamp = signed.timestamp.toString(),

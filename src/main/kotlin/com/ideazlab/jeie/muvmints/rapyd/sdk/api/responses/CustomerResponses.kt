@@ -4,6 +4,7 @@ import com.ideazlab.jeie.muvmints.rapyd.sdk.Response
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.embedded.RapydCustomer
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.embedded.RapydDiscount
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.embedded.RapydStatus
+import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.RapydDeletedItem
 
 @Response
 data class CustomerResponse(
@@ -21,4 +22,10 @@ data class CustomerListResponse(
 data class DiscountResponse(
     val status: RapydStatus,
     val data: RapydDiscount
+)
+
+@Response
+data class CustomerDiscountDeleteResponse(
+    val status: RapydStatus,
+    val data: RapydDeletedItem
 )

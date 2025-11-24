@@ -47,6 +47,97 @@ data class RapydPayment(
     val description: String?
 )
 
+// ---- Refunds ----
+
+@Serdeable
+data class RapydRefundEwalletShare(
+    val amount: Double?,
+    val ewallet: String?
+)
+
+@Serdeable
+data class RapydRefund(
+    val id: String,
+    val amount: Double?,
+    val currency: String?,
+    @param:JsonProperty("created_at")
+    val createdAt: Long? = null,
+    val ewallets: List<RapydRefundEwalletShare>? = null,
+    @param:JsonProperty("failure_reason")
+    val failureReason: String? = null,
+    @param:JsonProperty("fixed_side")
+    val fixedSide: String? = null,
+    @param:JsonProperty("fx_rate")
+    val fxRate: String? = null,
+    @param:JsonProperty("merchant_debited_amount")
+    val merchantDebitedAmount: String? = null,
+    @param:JsonProperty("merchant_debited_currency")
+    val merchantDebitedCurrency: String? = null,
+    @param:JsonProperty("merchant_reference_id")
+    val merchantReferenceId: String? = null,
+    val metadata: Map<String, Any?>? = null,
+    val payment: String?,
+    @param:JsonProperty("payment_created_at")
+    val paymentCreatedAt: Long? = null,
+    @param:JsonProperty("payment_method_type")
+    val paymentMethodType: String? = null,
+    @param:JsonProperty("proportional_refund")
+    val proportionalRefund: Boolean? = null,
+    val reason: String? = null,
+    @param:JsonProperty("receipt_number")
+    val receiptNumber: Long? = null,
+    val status: String?,
+    @param:JsonProperty("updated_at")
+    val updatedAt: Long? = null
+)
+
+// ---- Disputes ----
+
+@Serdeable
+data class RapydDispute(
+    val id: String?,
+    // token is the dispute ID according to the OpenAPI, mapped to `token`
+    val token: String?,
+    val status: String?,
+    val amount: Double?,
+    val currency: String?,
+    @param:JsonProperty("dispute_category")
+    val disputeCategory: String?,
+    @param:JsonProperty("dispute_reason_description")
+    val disputeReasonDescription: String?,
+    @param:JsonProperty("original_transaction_currency")
+    val originalTransactionCurrency: String?,
+    @param:JsonProperty("original_transaction_amount")
+    val originalTransactionAmount: Double?,
+    @param:JsonProperty("original_dispute_amount")
+    val originalDisputeAmount: Double?,
+    @param:JsonProperty("original_dispute_currency")
+    val originalDisputeCurrency: String?,
+    @param:JsonProperty("original_transaction_id")
+    val originalTransactionId: String?,
+    @param:JsonProperty("ewallet_id")
+    val ewalletId: String?,
+    @param:JsonProperty("central_processing_date")
+    val centralProcessingDate: Long?,
+    @param:JsonProperty("created_at")
+    val createdAt: Long?,
+    @param:JsonProperty("updated_at")
+    val updatedAt: Long?,
+    @param:JsonProperty("due_date")
+    val dueDate: Long?,
+    @param:JsonProperty("payment_method")
+    val paymentMethod: String?,
+    @param:JsonProperty("payment_method_data")
+    val paymentMethodData: Map<String, Any?>?,
+    val rate: Double?,
+    val evidence: String?,
+    @param:JsonProperty("evidence_reason_code")
+    val evidenceReasonCode: String?,
+    @param:JsonProperty("pre_dispute")
+    val preDispute: Boolean?,
+    val arn: String?
+)
+
 // ---- Wallets ----
 
 @Serdeable
