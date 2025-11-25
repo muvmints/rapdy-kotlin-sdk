@@ -389,3 +389,51 @@ data class RapydDiscount(
     @param:JsonProperty(value = "times_redeemed")
     val timesRedeemed: Int?
 )
+
+// ---- eWallet.Contact ----
+
+@Serdeable
+data class RapydContact(
+    val id: String?,
+    val ewallet: String?,
+    val address: RapydAddress?,
+    @param:JsonProperty("business_details")
+    val businessDetails: Any?,
+    @param:JsonProperty("compliance_profile")
+    val complianceProfile: Int?,
+    @param:JsonProperty("contact_reference_id")
+    val contactReferenceId: String?,
+    @param:JsonProperty("contact_type")
+    val contactType: String?,
+    val country: String?,
+    @param:JsonProperty("created_at")
+    val createdAt: Long?,
+    @param:JsonProperty("date_of_birth")
+    val dateOfBirth: String?,
+    val email: String?,
+    @param:JsonProperty("first_name")
+    val firstName: String?,
+    val gender: String?,
+    @param:JsonProperty("house_type")
+    val houseType: String?,
+    @param:JsonProperty("identification_number")
+    val identificationNumber: String?,
+    @param:JsonProperty("identification_type")
+    val identificationType: String?,
+    @param:JsonProperty("last_name")
+    val lastName: String?,
+    @param:JsonProperty("marital_status")
+    val maritalStatus: String?,
+    val metadata: Map<String, Any?>?,
+    @param:JsonProperty("middle_name")
+    val middleName: String?,
+    @param:JsonProperty("mothers_name")
+    val mothersName: String?,
+    val nationality: String?,
+    @param:JsonProperty("phone_number")
+    val phoneNumber: String?,
+    @param:JsonProperty("second_last_name")
+    val secondLastName: String?,
+    @param:JsonProperty("send_notifications")
+    val sendNotifications: Boolean?
+)
