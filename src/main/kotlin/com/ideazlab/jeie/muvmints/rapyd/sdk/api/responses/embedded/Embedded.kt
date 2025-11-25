@@ -28,6 +28,31 @@ data class RapydPaymentMethod(
 )
 
 @Serdeable
+data class RapydCustomerPaymentMethod(
+    val id: String?,
+    val type: String?,
+    val category: String?,
+    val name: String?,
+    val image: String?,
+    val token: String?,
+    @param:JsonProperty("last4")
+    val last4: String? = null,
+    @param:JsonProperty("fingerprint_token")
+    val fingerprintToken: String? = null,
+    @param:JsonProperty("network_reference_id")
+    val networkReferenceId: String? = null,
+    @param:JsonProperty("redirect_url")
+    val redirectUrl: String? = null,
+    @param:JsonProperty("webhook_url")
+    val webhookUrl: String? = null,
+    @param:JsonProperty("supporting_documentation")
+    val supportingDocumentation: String? = null,
+    @param:JsonProperty("next_action")
+    val nextAction: Any? = null,
+    val metadata: Map<String, Any?>? = null
+)
+
+@Serdeable
 data class RapydCreatePaymentRequest(
     val amount: Double,
     val currency: String,
@@ -273,6 +298,32 @@ data class RapydCustomerAddress(
     val state: String?,
     val country: String?,
     val zip: String?
+)
+
+
+// ---- Address (Payment.Address) ----
+
+@Serdeable
+data class RapydAddress(
+    val id: String?,
+    val name: String?,
+    @param:JsonProperty(value = "line_1")
+    val line1: String?,
+    @param:JsonProperty(value = "line_2")
+    val line2: String?,
+    @param:JsonProperty(value = "line_3")
+    val line3: String?,
+    val city: String?,
+    val state: String?,
+    val country: String?,
+    val zip: String?,
+    val canton: String?,
+    val district: String?,
+    @param:JsonProperty(value = "phone_number")
+    val phoneNumber: String?,
+    @param:JsonProperty(value = "created_at")
+    val createdAt: Long?,
+    val metadata: Map<String, Any?>?
 )
 
 
