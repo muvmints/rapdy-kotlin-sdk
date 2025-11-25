@@ -27,29 +27,29 @@ data class PlanDeleteResponse(
 data class RapydPlan(
     val id: String?,
     val active: Boolean?,
-    @JsonProperty("aggregate_usage")
+    @param:JsonProperty("aggregate_usage")
     val aggregateUsage: String?,
     val amount: Double?,
-    @JsonProperty("billing_scheme")
+    @param:JsonProperty("billing_scheme")
     val billingScheme: String?,
     val currency: String?,
     val interval: String?,
-    @JsonProperty("interval_count")
+    @param:JsonProperty("interval_count")
     val intervalCount: Int?,
     val metadata: Map<String, Any?>?,
     val nickname: String?,
     val product: String?,
     val tiers: List<Map<String, Any?>>?,
-    @JsonProperty("tiers_mode")
+    @param:JsonProperty("tiers_mode")
     val tiersMode: String?,
-    @JsonProperty("transform_usage")
+    @param:JsonProperty("transform_usage")
     val transformUsage: Map<String, Any?>?,
-    @JsonProperty("trial_period_days")
+    @param:JsonProperty("trial_period_days")
     val trialPeriodDays: Int?,
-    @JsonProperty("usage_type")
+    @param:JsonProperty("usage_type")
     val usageType: String?,
-    @JsonProperty("created_at")
+    @param:JsonProperty("created_at")
     val createdAt: Long? = null,
-    @JsonProperty("updated_at")
+    @param:JsonProperty("updated_at")
     val updatedAt: Long? = null
 )

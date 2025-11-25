@@ -1,5 +1,6 @@
 package com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.ideazlab.jeie.muvmints.rapyd.sdk.Response
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.embedded.RapydStatus
 import com.ideazlab.jeie.muvmints.rapyd.sdk.api.responses.embedded.RapydWallet
@@ -46,7 +47,7 @@ data class ComplianceLevelsResponse(
 )
 
 data class ComplianceLevelsData(
-    @com.fasterxml.jackson.annotation.JsonProperty("compliance_levels")
+    @param:JsonProperty("compliance_levels")
     val complianceLevels: List<ComplianceLevel>
 )
 
@@ -56,7 +57,7 @@ data class ComplianceLevel(
 )
 
 data class ComplianceElement(
-    @com.fasterxml.jackson.annotation.JsonProperty("element_name")
+    @param:JsonProperty("element_name")
     val elementName: String?,
     val verified: Boolean?
 )

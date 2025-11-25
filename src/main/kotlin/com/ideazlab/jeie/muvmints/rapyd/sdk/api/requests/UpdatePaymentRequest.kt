@@ -7,11 +7,11 @@ data class UpdatePaymentRequest(
     val address: RapydCustomerAddress? = null,
     val description: String? = null,
     val escrow: Boolean? = null,
-    @JsonProperty("escrow_release_days")
+    @param:JsonProperty("escrow_release_days")
     val escrowReleaseDays: Int? = null,
-    @JsonProperty("initiation_type")
+    @param:JsonProperty("initiation_type")
     val initiationType: String? = null,
     val metadata: Map<String, Any?>? = null,
-    @JsonProperty("receipt_email")
+    @param:JsonProperty("receipt_email")
     val receiptEmail: String? = null
 )

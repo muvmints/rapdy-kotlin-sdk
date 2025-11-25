@@ -8,15 +8,15 @@ import io.micronaut.serde.annotation.Serdeable
 @Serdeable
 data class CreatePlanRequest(
     val active: Boolean? = null,
-    @JsonProperty("aggregate_usage")
+    @param:JsonProperty("aggregate_usage")
     val aggregateUsage: String? = null,
     val amount: Double? = null,
-    @JsonProperty("billing_scheme")
+    @param:JsonProperty("billing_scheme")
     val billingScheme: String? = null,
     val currency: String,
     val id: String? = null,
     val interval: String,
-    @JsonProperty("interval_count")
+    @param:JsonProperty("interval_count")
     val intervalCount: Int? = null,
     val metadata: Map<String, Any?>? = null,
     val nickname: String? = null,
@@ -24,13 +24,13 @@ data class CreatePlanRequest(
     // OpenAPI describes tiers as an array of objects but leaves it loosely defined in this spec.
     // Use a flexible representation to avoid tight coupling.
     val tiers: List<Map<String, Any?>>? = null,
-    @JsonProperty("tiers_mode")
+    @param:JsonProperty("tiers_mode")
     val tiersMode: String? = null,
-    @JsonProperty("transform_usage")
+    @param:JsonProperty("transform_usage")
     val transformUsage: Map<String, Any?>? = null,
-    @JsonProperty("trial_period_days")
+    @param:JsonProperty("trial_period_days")
     val trialPeriodDays: Int? = null,
-    @JsonProperty("usage_type")
+    @param:JsonProperty("usage_type")
     val usageType: String? = null
 )
 

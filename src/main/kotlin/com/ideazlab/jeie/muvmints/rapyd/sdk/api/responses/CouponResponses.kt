@@ -26,30 +26,30 @@ data class CouponDeleteResponse(
 @Serdeable
 data class RapydCoupon(
     val id: String?,
-    @JsonProperty("amount_off")
+    @param:JsonProperty("amount_off")
     val amountOff: Double?,
     val currency: String?,
     val description: String?,
-    @JsonProperty("discount_duration_in_uses")
+    @param:JsonProperty("discount_duration_in_uses")
     val discountDurationInUses: Int?,
-    @JsonProperty("discount_valid_until")
+    @param:JsonProperty("discount_valid_until")
     val discountValidUntil: Long?,
-    @JsonProperty("discount_validity_in_months")
+    @param:JsonProperty("discount_validity_in_months")
     val discountValidityInMonths: Int?,
     val duration: String?,
-    @JsonProperty("duration_in_months")
+    @param:JsonProperty("duration_in_months")
     val durationInMonths: Int?,
-    @JsonProperty("max_redemptions")
+    @param:JsonProperty("max_redemptions")
     val maxRedemptions: Int?,
     val metadata: Map<String, Any?>?,
-    @JsonProperty("percent_off")
+    @param:JsonProperty("percent_off")
     val percentOff: Int?,
-    @JsonProperty("redeem_by")
+    @param:JsonProperty("redeem_by")
     val redeemBy: Long?,
-    @JsonProperty("times_redeemed")
+    @param:JsonProperty("times_redeemed")
     val timesRedeemed: Int?,
     val valid: Boolean?,
     // Timestamps present in other models
-    @JsonProperty("created")
+    @param:JsonProperty("created")
     val created: Long? = null
 )

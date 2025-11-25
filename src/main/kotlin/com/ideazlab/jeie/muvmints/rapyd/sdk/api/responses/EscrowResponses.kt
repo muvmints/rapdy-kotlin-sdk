@@ -19,30 +19,30 @@ data class EscrowResponseDataOnly(
 
 @Serdeable
 data class EscrowResponse(
-    @JsonProperty("amount_on_hold")
+    @param:JsonProperty("amount_on_hold")
     val amountOnHold: Double?,
-    @JsonProperty("created_at")
+    @param:JsonProperty("created_at")
     val createdAt: Long?,
     val currency: String?,
-    @JsonProperty("escrow_releases")
+    @param:JsonProperty("escrow_releases")
     val escrowReleases: EscrowReleases?,
     val id: String?,
-    @JsonProperty("last_payment_completion")
+    @param:JsonProperty("last_payment_completion")
     val lastPaymentCompletion: Long?,
     val payment: String?,
     val status: String?,
-    @JsonProperty("total_amount_released")
+    @param:JsonProperty("total_amount_released")
     val totalAmountReleased: Double?,
-    @JsonProperty("updated_at")
+    @param:JsonProperty("updated_at")
     val updatedAt: Long?
 )
 
 @Serdeable
 data class EscrowReleases(
     val data: List<EscrowRelease>?,
-    @JsonProperty("has_more")
+    @param:JsonProperty("has_more")
     val hasMore: Boolean?,
-    @JsonProperty("total_count")
+    @param:JsonProperty("total_count")
     val totalCount: Int?,
     val url: String?
 )
@@ -50,12 +50,12 @@ data class EscrowReleases(
 @Serdeable
 data class EscrowRelease(
     val amount: Double?,
-    @JsonProperty("created_at")
+    @param:JsonProperty("created_at")
     val createdAt: Long?,
     val currency: String?,
     val ewallets: EscrowWalletRelease?,
     val id: String?,
-    @JsonProperty("proportional_release")
+    @param:JsonProperty("proportional_release")
     val proportionalRelease: Boolean?,
     val trigger: String?
 )
