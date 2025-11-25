@@ -128,7 +128,7 @@ publishing {
                 }
             }
             groupId = group
-            artifactId = "rapdy-kotlin-sdk"
+            artifactId = "rapdy-sdk"
             version = appVersion
             repositories {
                 maven {
